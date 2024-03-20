@@ -32,6 +32,9 @@ function App() {
     {label: "Familia Partner",                  priceMntCls1: 310, priceMntCls2: 200, priceYearCls1: 3520, priceYearCls2: 2180},
 ];
 
+const options = priceObjectsGA.map((e)=> {return e.label})
+console.log(options);
+
   const blitzOnOrOff = () => {
     setIsBlitztoggled(!isBlitzToggled);
     isBlitzToggled ? setBlitzOn("blitz is off") : setBlitzOn("blitz is on");
@@ -73,7 +76,22 @@ function App() {
       setIsSecondclassToggled(!isSecondclassToggled);
     }
   };
-  
+  const getCoursesContent = (categories) => {
+    let content = [];
+    for (let i = 0; i < categories.length; i++) {
+      const item = categories[i];
+      content.push(
+        <option
+          value={item}
+          key={item}
+          // onSelect={(e) => onOptionSelect(e.target.value)}
+        >
+          {item}
+        </option>
+      );
+    }
+    return content;
+  };
   
   return (
     <>
