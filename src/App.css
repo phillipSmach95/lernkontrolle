@@ -36,9 +36,54 @@
     transform: rotate(360deg);
   }
 }
+.container{
+  display: grid;
+  
+  justify-content: center;
+  
+  gap: 6px;
+  width: 80%;
+  padding: 20PX;
+  border-color: white;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 4px;
+}
 .form-div{
+  display: grid;
+  
+  justify-self: center;
+ 
+  width: max-content;
+  padding: 10PX;
+  border-color: white;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 4px;
+}
+.radio-group{
   display: flex;
-  flex-flow: row-reverse;
-  justify-content: space-between;
-  width: 150px;
+  flex-direction: row-reverse;
+  justify-content: left;
+  width: fit-content;
+  gap: 10px;
+}
+.date-group{
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: left;
+  gap: 10px;
+}
+
+
+.radio-group input[type=radio]:checked + label{
+  font-weight: bold;
+}
+
+.radio-group input[type=radio] + label{
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  gap: 10px;
+
 }
