@@ -4,15 +4,8 @@ import { useState } from "react";
 function App() {
   const [blitzOn, setBlitzOn] = useState("blitz is on");
   const [date, setDate] = useState(new Date());
-  // const [selectedStyle, setSelectedStyle] = useState("");
-  // const [isAdultSelected, setIsAdultSelected] = useState(true);
-  // const [isJuniorSelected, setIsJuniorSelected] = useState(false);
-  // const [isKidSelected, setIsKidSelected] = useState(false);
-  // const [isSenjorSelected, setIsSenjorSelected] = useState(false);
-  // const [isStudentSelected, setIsstudentSelected] = useState(false);
-  const [option, setOption] = useState('');
-  
-
+  const [ticketPrice, setTicketPrice] = useState(0);
+  const [option, setOption] = useState('Erwachsene 25-64/65 Jahre');
   const [isBlitzToggled, setIsBlitztoggled] = useState(true);
   const [isFirstclassToggled, setIsFirstclassToggled] = useState(true);
   const [isSecondclassToggled, setIsSecondclassToggled] = useState(false);
@@ -35,7 +28,7 @@ function App() {
 ];
 
 const options = priceObjectsGA.map((e)=> {return e.label})
-console.log(options);
+console.log(priceObjectsGA.find((e)=> e.label === option).priceMntCls1)
 
   const blitzOnOrOff = () => {
     setIsBlitztoggled(!isBlitzToggled);
@@ -87,7 +80,7 @@ console.log(options);
     let content = [];
     for (let i = 0; i < categories.length; i++) {
       const item = categories[i];
-      categories.push(
+      content.push(
         <option
           value={item}
           key={item}
@@ -99,6 +92,15 @@ console.log(options);
     }
     return content;
   };
+  function getPrice(){
+    if(isYearlyToggled){
+        isFirstclassToggled ? setTicketPrice(priceObjectsGA.find((e)=> e.label === option).priceYearCls1) : setTicketPrice(priceObjectsGA.find((e)=> e = option).priceYearCls2)
+    }else
+    if(isMonthlyToggled){
+        isFirstclassToggled ? setTicketPrice(priceObjectsGA.find((e)=> e.label === option).priceMntCls1) : setTicketPrice(priceObjectsGA.find((e)=> e = option).priceMntCls2)
+    }
+
+  }
   
   return (
     <>
@@ -184,12 +186,14 @@ console.log(options);
                   <input type="radio" name="firstclass" id="firstclass" checked={isFirstclassToggled} onClick={()=>onFirstclassClick()} />
                 </label>
                 <label htmlFor="secondclass" className="radio-group">
-                  Erste Klasse
+                  Zweite Klasse
                   <input type="radio" name="secondclass" id="secondclass" checked={isSecondclassToggled} onClick={()=>onSecondclassClick()} />
                 </label>
-                <select name="category" id="category" value={option} onChange={(e)=> setOption(e.target.value)}>
+                <select name="category" id="category" onChange={(e)=> setOption(e.target.value)}>
                   {getOptionsContent(options)}
                 </select>
+                <button type="button" onClick={()=>getPrice()}>Abo-Preis Anzeigen</button>
+                <p>{ticketPrice} Fr.</p>
               </div>
             </div>
           </div>
