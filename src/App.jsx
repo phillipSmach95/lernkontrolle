@@ -4,12 +4,14 @@ import { useState } from "react";
 function App() {
   const [blitzOn, setBlitzOn] = useState("blitz is on");
   const [date, setDate] = useState(new Date());
-  const [selectedStyle, setSelectedStyle] = useState("");
-  const [isAdultSelected, setIsAdultSelected] = useState(true);
-  const [isJuniorSelected, setIsJuniorSelected] = useState(false);
-  const [isKidSelected, setIsKidSelected] = useState(false);
-  const [isSenjorSelected, setIsSenjorSelected] = useState(false);
-  const [isStudentSelected, setIsstudentSelected] = useState(false);
+  // const [selectedStyle, setSelectedStyle] = useState("");
+  // const [isAdultSelected, setIsAdultSelected] = useState(true);
+  // const [isJuniorSelected, setIsJuniorSelected] = useState(false);
+  // const [isKidSelected, setIsKidSelected] = useState(false);
+  // const [isSenjorSelected, setIsSenjorSelected] = useState(false);
+  // const [isStudentSelected, setIsstudentSelected] = useState(false);
+  const [option, setOption] = useState('');
+  
 
   const [isBlitzToggled, setIsBlitztoggled] = useState(true);
   const [isFirstclassToggled, setIsFirstclassToggled] = useState(true);
@@ -76,15 +78,20 @@ console.log(options);
       setIsSecondclassToggled(!isSecondclassToggled);
     }
   };
-  const getCoursesContent = (categories) => {
+
+  const onOptionSelect = (option) => {
+    setOption(option);
+  };
+
+  const getOptionsContent = (categories) => {
     let content = [];
     for (let i = 0; i < categories.length; i++) {
       const item = categories[i];
-      content.push(
+      categories.push(
         <option
           value={item}
           key={item}
-          // onSelect={(e) => onOptionSelect(e.target.value)}
+          onSelect={(e) => onOptionSelect(e.target.value)}
         >
           {item}
         </option>
@@ -180,8 +187,8 @@ console.log(options);
                   Erste Klasse
                   <input type="radio" name="secondclass" id="secondclass" checked={isSecondclassToggled} onClick={()=>onSecondclassClick()} />
                 </label>
-                <select name="category" id="category">
-                  
+                <select name="category" id="category" value={option} onChange={(e)=> setOption(e.target.value)}>
+                  {getOptionsContent(options)}
                 </select>
               </div>
             </div>
