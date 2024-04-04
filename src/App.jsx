@@ -13,6 +13,9 @@ function App() {
   const [isPortraitToggled, setIsPortraitToggled] = useState(false);
   const [isMonthlyToggled, setIsMonthlyToggled] = useState(true);
   const [isYearlyToggled, setIsYearlyToggled] = useState(false);
+  const [paymentPeriod, setPaymentPeriod] = useState('');
+  const [classType, setClassType] = useState("");
+  
 
   const priceObjectsGA = [
     {
@@ -156,19 +159,27 @@ function App() {
   };
   function getPrice() {
     if (isYearlyToggled) {
-      isFirstclassToggled
-        ? setTicketPrice(
-            priceObjectsGA.find((e) => e.label === option).priceYearCls1
-          )
-        : setTicketPrice(
-            priceObjectsGA.find((e) => (e = option)).priceYearCls2
-          );
+      setPaymentPeriod("Jährlich");
+      if (isFirstclassToggled) {
+        setClassType("Erste Klasse");
+        setTicketPrice(
+          priceObjectsGA.find((e) => e.label === option).priceYearCls1
+        );
+      } else {
+        setClassType("Zweite Klasse");
+        setTicketPrice(priceObjectsGA.find((e) => (e = option)).priceYearCls2);
+      }
     } else if (isMonthlyToggled) {
-      isFirstclassToggled
-        ? setTicketPrice(
-            priceObjectsGA.find((e) => e.label === option).priceMntCls1
-          )
-        : setTicketPrice(priceObjectsGA.find((e) => (e = option)).priceMntCls2);
+      setPaymentPeriod("Monatlich");
+      if (isFirstclassToggled) {
+        setClassType("Erste Klasse");
+        setTicketPrice(
+          priceObjectsGA.find((e) => e.label === option).priceMntCls1
+        );
+      } else {
+        setClassType("Zweite Klasse");
+        setTicketPrice(priceObjectsGA.find((e) => (e = option)).priceMntCls2);
+      }
     }
   }
 
@@ -193,9 +204,7 @@ function App() {
             <div className="form-div">
               <p>Aufgabe 2</p>
               <div className="radio-group">
-                <label htmlFor="landscape">
-                  Landscape
-                </label>
+                <label htmlFor="landscape">Landscape</label>
                 <input
                   type="radio"
                   id="landscape"
@@ -204,9 +213,7 @@ function App() {
                 />
               </div>
               <div className="radio-group">
-                <label htmlFor="portrait" >
-                  Portrait
-                </label>
+                <label htmlFor="portrait">Portrait</label>
                 <input
                   type="radio"
                   id="portrait"
@@ -228,9 +235,7 @@ function App() {
                 />
 
                 <div className="radio-group">
-                  <label htmlFor="month" >
-                    Monatliche Bezahlung
-                  </label>
+                  <label htmlFor="month">Monatliche Bezahlung</label>
                   <input
                     type="radio"
                     name="month"
@@ -240,9 +245,7 @@ function App() {
                   />
                 </div>
                 <div className="radio-group">
-                  <label htmlFor="year" >
-                    Jährliche Bezahlung
-                  </label>
+                  <label htmlFor="year">Jährliche Bezahlung</label>
                   <input
                     type="radio"
                     name="year"
@@ -252,9 +255,7 @@ function App() {
                   />
                 </div>
                 <div className="radio-group">
-                  <label htmlFor="firstclass" >
-                    Erste Klasse
-                  </label>
+                  <label htmlFor="firstclass">Erste Klasse</label>
                   <input
                     type="radio"
                     name="firstclass"
@@ -264,9 +265,7 @@ function App() {
                   />
                 </div>
                 <div className="radio-group">
-                  <label htmlFor="secondclass" >
-                    Zweite Klasse
-                  </label>
+                  <label htmlFor="secondclass">Zweite Klasse</label>
                   <input
                     type="radio"
                     name="secondclass"
@@ -285,11 +284,18 @@ function App() {
                 <button type="button" onClick={() => getPrice()}>
                   Abo-Preis Anzeigen
                 </button>
-                <p>{ticketPrice} Fr.</p>
+                
               </div>
               <div className="form-div">
                 <h3>Rechnung</h3>
-                <div className="Bill-div"></div>
+                <div className="Bill-div">
+                  <p>Rechnungsperiode {paymentPeriod}</p>
+                  <p> {classType}</p>
+                  
+                  <p>{option}</p>
+
+                  <p>{ticketPrice} Fr.</p>
+                </div>
               </div>
             </div>
           </div>
