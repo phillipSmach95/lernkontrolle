@@ -13,9 +13,8 @@ function App() {
   const [isPortraitToggled, setIsPortraitToggled] = useState(false);
   const [isMonthlyToggled, setIsMonthlyToggled] = useState(true);
   const [isYearlyToggled, setIsYearlyToggled] = useState(false);
-  const [paymentPeriod, setPaymentPeriod] = useState('');
+  const [paymentPeriod, setPaymentPeriod] = useState("");
   const [classType, setClassType] = useState("");
-  
 
   const priceObjectsGA = [
     {
@@ -284,16 +283,13 @@ function App() {
                 <button type="button" onClick={() => getPrice()}>
                   Abo-Preis Anzeigen
                 </button>
-                
               </div>
               <div className="form-div">
                 <h3>Rechnung</h3>
                 <div className="Bill-div">
                   <p>Rechnungsperiode {paymentPeriod}</p>
                   <p> {classType}</p>
-                  
                   <p>{option}</p>
-
                   <p>{ticketPrice} Fr.</p>
                 </div>
               </div>
